@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Microsoft365AppsTable = () => {
   const [activeTab, setActiveTab] = useState('business');
