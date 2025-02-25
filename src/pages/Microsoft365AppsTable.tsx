@@ -10,7 +10,6 @@ const Microsoft365AppsTable = () => {
     { id: 'enterprise', name: 'Enterprise Management' }
   ];
 
-  // Apps data organized by category
   const appsData: Record<string, Array<{
     name: string;
     icon: string;
@@ -66,74 +65,69 @@ const Microsoft365AppsTable = () => {
   };
 
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-6 text-blue-700">Microsoft 365 Enterprise Apps and Services</h1>
+    <div className="p-6 bg-white">
+      <h1 className="text-2xl font-semibold text-blue-600 mb-6">
+        Microsoft 365 Enterprise Apps and Services
+      </h1>
       
-      <div className="mb-4 bg-white p-4 rounded shadow">
-        <h2 className="text-lg font-semibold mb-2">License Coverage</h2>
-        <div className="grid grid-cols-2 gap-4">
+      {/* License Coverage */}
+      <div className="bg-gray-50 p-4 rounded mb-6">
+        <h2 className="text-lg font-medium mb-4">License Coverage</h2>
+        <div className="flex flex-wrap gap-8">
           <div className="flex items-center">
-            <span className="text-gray-700 mr-2">💻</span>
-            <span>Installable on PCs or Macs:</span>
-            <span className="ml-2 font-semibold">{licenseDetails.installable}</span>
+            <span className="text-blue-600 mr-2">💻</span>
+            <span className="text-gray-600">Installable on PCs or Macs:</span>
+            <span className="ml-2 font-medium">{licenseDetails.installable}</span>
           </div>
           <div className="flex items-center">
-            <span className="text-gray-700 mr-2">📱</span>
-            <span>Phones and tablets per user:</span>
-            <span className="ml-2 font-semibold">{licenseDetails.phones}</span>
+            <span className="text-blue-600 mr-2">📱</span>
+            <span className="text-gray-600">Phones and tablets per user:</span>
+            <span className="ml-2 font-medium">{licenseDetails.phones}</span>
           </div>
         </div>
       </div>
-      
-      <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
-        <div className="flex border-b">
+
+      {/* Navigation Tabs */}
+      <div className="border-b mb-6">
+        <div className="flex">
           {categories.map(category => (
             <button
               key={category.id}
               onClick={() => setActiveTab(category.id)}
-              className={`px-4 py-3 text-sm font-medium ${
-                activeTab === category.id 
-                  ? 'bg-blue-600 text-white' 
-                  : 'text-gray-600 hover:bg-gray-100'
+              className={`px-6 py-2 text-sm font-medium border-b-2 ${
+                activeTab === category.id
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300'
               }`}
             >
               {category.name}
             </button>
           ))}
         </div>
-        
-        <div className="p-4">
-          <div className="grid grid-cols-1 gap-4">
-            {appsData[activeTab].map((app, index) => (
-              <div key={index} className="border rounded-lg overflow-hidden shadow-sm">
-                <div className="flex items-center p-4 bg-gray-50">
-                  <span className="text-2xl mr-3">{app.icon}</span>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-gray-800">{app.name}</h3>
-                    <p className="text-sm text-gray-600">{app.description}</p>
-                  </div>
-                  <div className="flex items-center">
-                    <div className={`px-3 py-1 rounded text-sm ${
-                      app.plan.includes('Plan') && !app.plan.includes('Included') 
-                        ? 'bg-blue-100 text-blue-800' 
-                        : app.plan === 'Included' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {app.plan}
-                    </div>
-                    {app.plan === 'Included' && (
-                      <span className="ml-2 text-green-500 text-xl">✓</span>
-                    )}
-                  </div>
+      </div>
+
+      {/* Apps List */}
+      <div className="space-y-4">
+        {appsData[activeTab].map((app, index) => (
+          <div key={index} className="border rounded-lg p-4">
+            <div className="flex items-start">
+              <div className="flex-1">
+                <div className="flex items-center mb-2">
+                  <img 
+                    src={`/icons/${app.name.toLowerCase().replace(/\s+/g, '-')}.png`}
+                    alt={app.name}
+                    className="w-6 h-6 mr-3"
+                  />
+                  <h3 className="font-medium text-gray-900">{app.name}</h3>
                 </div>
+                <p className="text-sm text-gray-600 mb-2">{app.description}</p>
                 
                 {app.features.length > 0 && (
-                  <div className="p-4 border-t">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Features:</p>
-                    <ul className="text-sm text-gray-600">
+                  <div className="mt-3">
+                    <p className="text-sm font-medium text-gray-900 mb-2">Features:</p>
+                    <ul className="text-sm text-gray-600 space-y-1">
                       {app.features.map((feature, i) => (
-                        <li key={i} className="flex items-start mb-1">
+                        <li key={i} className="flex items-start">
                           <span className="text-green-500 mr-2">✓</span>
                           <span>{feature}</span>
                         </li>
@@ -142,18 +136,21 @@ const Microsoft365AppsTable = () => {
                   </div>
                 )}
               </div>
-            ))}
+              <div className="ml-4">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  app.plan === 'Included'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-blue-100 text-blue-800'
+                }`}>
+                  {app.plan}
+                </span>
+                {app.plan === 'Included' && (
+                  <span className="ml-2 text-green-500">✓</span>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      
-      <div className="bg-blue-700 text-white p-4 rounded shadow-md">
-        <h2 className="font-medium mb-2">About Microsoft 365 Enterprise</h2>
-        <p className="text-sm">
-          Boost employee productivity with apps that help your organization automate processes, 
-          plan and track projects, create workflows, and more. Office 365 apps empower your employees to create, 
-          collaborate, and share work wherever they are, on any device.
-        </p>
+        ))}
       </div>
     </div>
   );
