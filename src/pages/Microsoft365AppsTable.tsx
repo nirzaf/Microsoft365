@@ -65,83 +65,84 @@ const Microsoft365AppsTable = () => {
   };
 
   return (
-    <div className="p-6 bg-white">
-      <h1 className="text-2xl font-semibold text-blue-600 mb-6">
+    <div className="px-4">
+      {/* Header */}
+      <h1 className="text-xl font-semibold text-blue-600 mb-8">
         Microsoft 365 Enterprise Apps and Services
       </h1>
       
       {/* License Coverage */}
-      <div className="bg-gray-50 p-4 rounded mb-6">
-        <h2 className="text-lg font-medium mb-4">License Coverage</h2>
-        <div className="flex flex-wrap gap-8">
+      <div className="bg-gray-50 rounded p-4 mb-8">
+        <h2 className="text-base font-medium text-gray-900 mb-4">License Coverage</h2>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
           <div className="flex items-center">
-            <span className="text-blue-600 mr-2">💻</span>
-            <span className="text-gray-600">Installable on PCs or Macs:</span>
-            <span className="ml-2 font-medium">{licenseDetails.installable}</span>
+            <span className="text-gray-500 mr-2">💻</span>
+            <span className="text-gray-600 text-sm">Installable on PCs or Macs:</span>
+            <span className="ml-2 text-sm font-medium text-gray-900">{licenseDetails.installable}</span>
           </div>
           <div className="flex items-center">
-            <span className="text-blue-600 mr-2">📱</span>
-            <span className="text-gray-600">Phones and tablets per user:</span>
-            <span className="ml-2 font-medium">{licenseDetails.phones}</span>
+            <span className="text-gray-500 mr-2">📱</span>
+            <span className="text-gray-600 text-sm">Phones and tablets per user:</span>
+            <span className="ml-2 text-sm font-medium text-gray-900">{licenseDetails.phones}</span>
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="border-b mb-6">
-        <div className="flex">
+      <div className="border-b border-gray-200 mb-6">
+        <nav className="flex -mb-px">
           {categories.map(category => (
             <button
               key={category.id}
               onClick={() => setActiveTab(category.id)}
-              className={`px-6 py-2 text-sm font-medium border-b-2 ${
-                activeTab === category.id
-                  ? 'text-blue-600 border-blue-600'
-                  : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`
+                mr-8 py-3 text-sm font-medium border-b-2 transition-colors
+                ${activeTab === category.id
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }
+              `}
             >
               {category.name}
             </button>
           ))}
-        </div>
+        </nav>
       </div>
 
       {/* Apps List */}
       <div className="space-y-4">
         {appsData[activeTab].map((app, index) => (
-          <div key={index} className="border rounded-lg p-4">
-            <div className="flex items-start">
+          <div key={index} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
+            <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center mb-2">
-                  <img 
-                    src={`/icons/${app.name.toLowerCase().replace(/\s+/g, '-')}.png`}
-                    alt={app.name}
-                    className="w-6 h-6 mr-3"
-                  />
+                  <span className="text-xl text-gray-400 mr-3">{app.icon}</span>
                   <h3 className="font-medium text-gray-900">{app.name}</h3>
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{app.description}</p>
+                <p className="text-sm text-gray-500 mb-3">{app.description}</p>
                 
                 {app.features.length > 0 && (
-                  <div className="mt-3">
+                  <div className="mt-4">
                     <p className="text-sm font-medium text-gray-900 mb-2">Features:</p>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <ul className="space-y-2">
                       {app.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-green-500 mr-2">✓</span>
-                          <span>{feature}</span>
+                        <li key={i} className="flex items-start text-sm">
+                          <span className="text-green-500 mr-2 flex-shrink-0">✓</span>
+                          <span className="text-gray-600">{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 )}
               </div>
-              <div className="ml-4">
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  app.plan === 'Included'
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-blue-100 text-blue-800'
-                }`}>
+              <div className="ml-4 flex-shrink-0">
+                <span className={`
+                  inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                  ${app.plan === 'Included'
+                    ? 'bg-green-50 text-green-700'
+                    : 'bg-blue-50 text-blue-700'
+                  }
+                `}>
                   {app.plan}
                 </span>
                 {app.plan === 'Included' && (
