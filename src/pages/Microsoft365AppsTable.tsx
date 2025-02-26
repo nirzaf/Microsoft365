@@ -1,3 +1,5 @@
+import './Microsoft365AppsTable.css';
+
 const Microsoft365AppsTable = () => {
   const apps = [
     {
