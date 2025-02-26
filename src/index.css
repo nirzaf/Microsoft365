@@ -10,6 +10,10 @@
   body {
     @apply bg-black text-white antialiased;
   }
+
+  table {
+    @apply w-full border-separate border-spacing-0;
+  }
 }
 
 @layer components {
@@ -24,34 +28,45 @@
   .section-subtitle {
     @apply text-xl text-gray-400 max-w-3xl;
   }
-  
-  .app-card {
-    @apply bg-[#1d1d1f] rounded-2xl p-6 transition-all duration-300
-    hover:scale-[1.02] hover:shadow-2xl;
+
+  .table-container {
+    @apply bg-[#1d1d1f] rounded-2xl overflow-hidden border border-gray-800/50;
   }
   
-  .nav-tab {
-    @apply px-6 py-3 text-sm font-medium transition-all duration-200
-    hover:text-white focus:outline-none relative;
+  .table-header {
+    @apply bg-[#1d1d1f] backdrop-blur-sm sticky top-0 z-10;
   }
   
-  .nav-tab::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 
-    transition-transform duration-200;
+  .table-header th {
+    @apply py-4 px-6 text-left text-sm font-medium text-gray-400 border-b border-gray-800;
   }
   
-  .nav-tab-active::after {
-    @apply scale-x-100;
+  .table-row {
+    @apply transition-colors hover:bg-white/5;
+  }
+  
+  .table-row td {
+    @apply py-4 px-6 border-b border-gray-800/50;
+  }
+  
+  .table-cell-app {
+    @apply flex items-center space-x-3;
+  }
+  
+  .app-icon {
+    @apply text-2xl;
+  }
+  
+  .app-name {
+    @apply font-medium text-white;
   }
   
   .feature-list {
-    @apply space-y-3 mt-6 border-t border-gray-800 pt-6;
+    @apply space-y-2;
   }
   
   .feature-item {
-    @apply flex items-center space-x-3 text-gray-400 hover:text-white
-    transition-colors duration-200;
+    @apply flex items-center space-x-2 text-sm text-gray-400;
   }
   
   .badge {
@@ -64,5 +79,21 @@
   
   .badge-addon {
     @apply bg-purple-500 bg-opacity-20 text-purple-400;
+  }
+  
+  .badge-limited {
+    @apply bg-gray-500 bg-opacity-20 text-gray-400;
+  }
+
+  .category-header {
+    @apply flex items-center space-x-4 mb-6;
+  }
+  
+  .category-title {
+    @apply text-2xl font-semibold text-white/90;
+  }
+  
+  .category-divider {
+    @apply flex-1 h-px bg-gray-800;
   }
 }
