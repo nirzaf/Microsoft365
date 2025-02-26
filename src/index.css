@@ -3,29 +3,66 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
   body {
-    @apply bg-gray-50;
+    @apply bg-black text-white antialiased;
   }
 }
 
 @layer components {
-  .app-card {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200;
+  .app-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  .tab-button {
-    @apply px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  .section-title {
+    @apply text-5xl font-semibold tracking-tight text-white mb-4;
   }
-
-  .tab-button-active {
-    @apply border-blue-600 text-blue-600;
+  
+  .section-subtitle {
+    @apply text-xl text-gray-400 max-w-3xl;
   }
-
-  .tab-button-inactive {
-    @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300;
+  
+  .app-card {
+    @apply bg-[#1d1d1f] rounded-2xl p-6 transition-all duration-300
+    hover:scale-[1.02] hover:shadow-2xl;
   }
-
-  .feature-check {
-    @apply flex items-start space-x-2 text-sm text-gray-600;
+  
+  .nav-tab {
+    @apply px-6 py-3 text-sm font-medium transition-all duration-200
+    hover:text-white focus:outline-none relative;
+  }
+  
+  .nav-tab::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 
+    transition-transform duration-200;
+  }
+  
+  .nav-tab-active::after {
+    @apply scale-x-100;
+  }
+  
+  .feature-list {
+    @apply space-y-3 mt-6 border-t border-gray-800 pt-6;
+  }
+  
+  .feature-item {
+    @apply flex items-center space-x-3 text-gray-400 hover:text-white
+    transition-colors duration-200;
+  }
+  
+  .badge {
+    @apply px-3 py-1 rounded-full text-xs font-medium tracking-wide;
+  }
+  
+  .badge-included {
+    @apply bg-blue-500 bg-opacity-20 text-blue-400;
+  }
+  
+  .badge-addon {
+    @apply bg-purple-500 bg-opacity-20 text-purple-400;
   }
 }

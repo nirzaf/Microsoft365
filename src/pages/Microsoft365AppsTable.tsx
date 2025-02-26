@@ -65,93 +65,115 @@ const Microsoft365AppsTable = () => {
   };
 
   return (
-    <div className="px-4">
-      {/* Header */}
-      <h1 className="text-xl font-semibold text-blue-600 mb-8">
-        Microsoft 365 Enterprise Apps and Services
-      </h1>
-      
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <div className="app-container py-24 text-center">
+        <h1 className="section-title">
+          Microsoft 365 Enterprise
+        </h1>
+        <p className="section-subtitle mx-auto">
+          Powerful apps and services designed for the modern workplace.
+          Transform how your team works with integrated solutions.
+        </p>
+      </div>
+
       {/* License Coverage */}
-      <div className="bg-gray-50 rounded p-4 mb-8">
-        <h2 className="text-base font-medium text-gray-900 mb-4">License Coverage</h2>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
-          <div className="flex items-center">
-            <span className="text-gray-500 mr-2">💻</span>
-            <span className="text-gray-600 text-sm">Installable on PCs or Macs:</span>
-            <span className="ml-2 text-sm font-medium text-gray-900">{licenseDetails.installable}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="text-gray-500 mr-2">📱</span>
-            <span className="text-gray-600 text-sm">Phones and tablets per user:</span>
-            <span className="ml-2 text-sm font-medium text-gray-900">{licenseDetails.phones}</span>
+      <div className="bg-[#151516] py-20">
+        <div className="app-container">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-3xl font-semibold mb-6">License Coverage</h2>
+              <p className="text-gray-400 text-lg mb-8">
+                Get the most out of your Microsoft 365 subscription with flexible licensing 
+                options for all your devices.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <div className="app-card">
+                <div className="flex items-center">
+                  <span className="text-3xl mr-4">💻</span>
+                  <div>
+                    <p className="text-sm text-gray-400">Installable on PCs or Macs</p>
+                    <p className="text-xl font-semibold mt-1">{licenseDetails.installable}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="app-card">
+                <div className="flex items-center">
+                  <span className="text-3xl mr-4">📱</span>
+                  <div>
+                    <p className="text-sm text-gray-400">Phones and tablets per user</p>
+                    <p className="text-xl font-semibold mt-1">{licenseDetails.phones}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="border-b border-gray-200 mb-6">
-        <nav className="flex -mb-px">
+      {/* Apps Section */}
+      <div className="app-container py-20">
+        {/* Navigation Tabs */}
+        <div className="flex justify-center mb-16 space-x-4">
           {categories.map(category => (
             <button
               key={category.id}
               onClick={() => setActiveTab(category.id)}
-              className={`
-                mr-8 py-3 text-sm font-medium border-b-2 transition-colors
-                ${activeTab === category.id
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }
-              `}
+              className={`nav-tab ${activeTab === category.id ? 'nav-tab-active text-white' : 'text-gray-400'}`}
             >
               {category.name}
             </button>
           ))}
-        </nav>
-      </div>
+        </div>
 
-      {/* Apps List */}
-      <div className="space-y-4">
-        {appsData[activeTab].map((app, index) => (
-          <div key={index} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center mb-2">
-                  <span className="text-xl text-gray-400 mr-3">{app.icon}</span>
-                  <h3 className="font-medium text-gray-900">{app.name}</h3>
-                </div>
-                <p className="text-sm text-gray-500 mb-3">{app.description}</p>
-                
-                {app.features.length > 0 && (
-                  <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-900 mb-2">Features:</p>
-                    <ul className="space-y-2">
-                      {app.features.map((feature, i) => (
-                        <li key={i} className="flex items-start text-sm">
-                          <span className="text-green-500 mr-2 flex-shrink-0">✓</span>
-                          <span className="text-gray-600">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+        {/* Apps Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {appsData[activeTab].map((app, index) => (
+            <div key={index} className="app-card group">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center mb-4">
+                    <span className="text-2xl mr-3">{app.icon}</span>
+                    <h3 className="text-xl font-medium">{app.name}</h3>
                   </div>
-                )}
-              </div>
-              <div className="ml-4 flex-shrink-0">
-                <span className={`
-                  inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                  ${app.plan === 'Included'
-                    ? 'bg-green-50 text-green-700'
-                    : 'bg-blue-50 text-blue-700'
-                  }
-                `}>
+                  <p className="text-gray-400 text-sm leading-relaxed">{app.description}</p>
+                  
+                  {app.features.length > 0 && (
+                    <div className="feature-list">
+                      {app.features.map((feature, i) => (
+                        <div key={i} className="feature-item">
+                          <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <span className={`badge ${app.plan === 'Included' ? 'badge-included' : 'badge-addon'}`}>
                   {app.plan}
                 </span>
-                {app.plan === 'Included' && (
-                  <span className="ml-2 text-green-500">✓</span>
-                )}
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-[#151516] py-20">
+        <div className="app-container text-center">
+          <h2 className="text-4xl font-semibold mb-6">Ready to transform your workplace?</h2>
+          <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+            Join millions of organizations worldwide that trust Microsoft 365 Enterprise 
+            for their business needs.
+          </p>
+          <button className="bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium
+            hover:bg-blue-500 transition-colors duration-200">
+            Get Started Today
+          </button>
+        </div>
       </div>
     </div>
   );
